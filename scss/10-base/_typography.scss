@@ -1,0 +1,75 @@
+html body {
+    font-family: $font_secondary;
+    font-size: $font_size *1px;
+    font-weight: 200;
+    letter-spacing: 0.025rem;
+    color: $color_grey_darkest;
+}
+ 
+body p {
+    margin:0;
+    font-size: $font_size *1px;
+    line-height: $font_line-height *1px;
+}
+p + p,
+p + .button {
+    margin-top:.5rem;
+}
+.heading + p {
+    margin-top: 1rem;
+}
+b, strong {
+    font-weight: 400;
+}
+h1, h2, h3 ,h4, h5, h6,
+.h1, .h2, .h3, .h4 .h5, .h6 {
+    @include heading;
+    font-size: 1rem;
+}
+
+.heading {
+  @include heading;
+  margin:0;
+  &__1 {
+    font: ($font_size*2)+px / ($font_line-height*2.7)+px $font_primary;
+    span {
+      border-left: 1px solid $color_grey_dark;
+      margin-left: 1rem;
+      padding-left: 1rem;
+      font-size: $font_size*1.5px;
+      font-family: $font_secondary;
+      font-weight: 200;
+    }
+  }
+  &__2 {
+    font: ($font_size*2)+px / ($font_line-height*2)+px $font_secondary;
+    font-weight: 200;
+  }
+  &__3 {
+    font: ($font_size*1.3)+px / ($font_line-height*1.5)+px $font_primary;
+  }
+  &__4 {
+    font: ($font_size*1)+px / ($font_line-height*.8)+px $font_secondary;
+    font-weight: 200;
+  }
+  &__5 {
+    font: ($font_size*1)+px / ($font_line-height*1.2)+px $font_secondary;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0.05rem;
+  }
+  &__6 {
+    font: ($font_size*.85)+px / ($font_line-height*1)+px $font_secondary;
+    font-weight: 200;
+    text-transform:uppercase;
+  }
+  &__7 {
+    font: ($font_size*1)+px / ($font_line-height*1)+px $font_primary;
+  }
+  &__weight-heavy {
+      font-weight: 700;
+  }
+  &__uppercase {
+      text-transform: uppercase;
+  }
+}

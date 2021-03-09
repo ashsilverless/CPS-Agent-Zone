@@ -1,0 +1,53 @@
+/*! == PAGE OVERRIDES == */
+
+body.images,
+body.availability,
+body.properties,
+body.property,
+body.itineraries {
+    main {
+        padding-top: 0;
+    }
+}
+
+body.login {
+    nav,
+    footer,
+    .socket,
+    .scroll-to-top {
+        display: none;
+    }
+    main {
+        padding:0;
+    }
+    .fullscreen-wrapper {
+        @include backgroundCover;
+        min-height: 100vh;
+    }
+    .header {
+        text-align: center;
+        img {
+            position: relative;
+            z-index: 500;
+            width: 400px;
+            margin: 0 auto 2rem;;
+        }
+    }
+    .footer {
+        position: relative;
+        z-index: 500;
+        margin-top:5rem;
+        color: white;
+    }
+}
+.property {
+    .avail-property {
+        padding: 0;
+        box-shadow: none;
+        &__head {
+            .details {
+                display: none;
+            }
+        }
+    }
+}

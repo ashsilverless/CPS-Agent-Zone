@@ -1,0 +1,90 @@
+/*! == HEADER == */
+nav {
+  z-index: 500;
+  position: sticky;
+  top: 0;
+  background: $color_dark_red;
+  color: white;
+  .logo {
+    width: 100%;
+    height: auto;
+    padding-top: 1rem;
+  }
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    a {
+      position: relative;
+      padding: 1rem 0;
+      align-self: center;
+      &:after {
+        @include childOverlay;
+        top: initial;
+        bottom: 0;
+        transition: all 0.5s ease;
+        transform: scaleX(0);
+        border-radius: 4px 4px 0 0;
+        height: 4px;
+        background: $color_dark_red;
+      }
+      &.active,
+      &:hover {
+        &:after {
+          transform: scaleY(1);
+        }
+      }
+      &.active:after {
+        background: $color_orange;
+      }
+    }
+  }
+  .top-bar {
+    background: $color_grey_mid;
+    a {
+      padding: 1.5rem 0.25rem;
+      color: $color_dark_red;
+    }
+  }
+  .main-nav {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+    background: $color_grey_lightest;
+    a {
+      color: $color_grey_darkest;
+    }
+  }
+}
+
+.top-bar {
+  @include adminPadding;
+  background: $color_brand_main;
+  color: white;
+  svg {
+    padding: 0.5rem 0;
+  }
+  .row > div {
+    align-self: center;
+  }
+  .heading {
+    padding-top: .5rem;
+    color: white;
+  }
+}
+.brand-icon {
+  padding: 1rem 0;
+  path.st0 {
+    fill:white;
+  }
+}
+.logo {
+  &__main {
+    g.top-section path {
+      fill: $color_dark_red;
+    }
+    g.top-section .ampersand path {
+      fill: $color_brand_highlight;
+    }
+    g.lower-section path {
+      fill: $color_dark_red;
+    }
+  }
+}

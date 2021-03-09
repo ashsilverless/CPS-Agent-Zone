@@ -1,0 +1,131 @@
+/*! == MIXINS == */
+
+@mixin backgroundCover {
+    background-size: cover !important; /* !important added as result of rule not working inside display:grid */
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+@mixin backgroundContain {
+	background-size: contain !important; /* !important added as result of rule not working inside display:grid */
+	background-position: center center !important;
+	background-repeat: no-repeat !important;
+}
+
+@mixin psuedoElement {
+    content:'';
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+@mixin childOverlay {
+    content:'';
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:100%;
+}
+
+@mixin opacity {
+    opacity:0;
+    transition:opacity 0.5s ease;
+}
+
+@mixin flexVertAlign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@mixin gridCenter {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+@mixin spanLink {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin dropShadow {
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.3);
+}
+
+@mixin emphasisShadow {
+    border: 1px solid #efefef;
+    box-shadow: 5px 5px 12px hsla(0, 0%, 0%, 0.25);
+}
+
+@mixin roundedBorder {
+    border-radius:.25rem;
+}
+
+@mixin blackGrad {
+    background: -moz-linear-gradient(top, hsla(0,0%,0%,0) 0%, hsla(0,0%,0%,1) 100%);
+    background: -webkit-linear-gradient(top, hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
+    background: linear-gradient(to bottom, hsla(0,0%,0%,0) 0%,hsla(0,0%,0%,1) 100%);
+}
+
+@mixin heading {
+    font-family:$font_primary;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $color_grey_darkest;
+}
+
+@mixin transition-all {
+    transition: all 0.5s ease;
+}
+
+@function rem-calc($size) {
+  $remSize: $size / $font_size;
+  @return #{$remSize}rem;
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+$distance: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20); // Amount string.
+$sides: (top, bottom, left, right); // Sides var
+
+@each $amount in $distance {
+    @each $side in $sides {
+        .m#{str-slice($side, 0, 1)}#{$amount} {
+            margin-#{$side}: #{$amount}rem ;
+        }
+        .p#{str-slice($side, 0, 1)}#{$amount} {
+            padding-#{$side}: #{$amount}rem;
+        }
+    }
+}
+
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, black, 50%)) {
+  ::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+	-webkit-box-shadow: 0 10px 10px rgba(0,0,0,.5);
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-track {
+      background: $background-color;
+
+  }
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+@mixin adminPadding {
+  padding: 0 2rem;
+}

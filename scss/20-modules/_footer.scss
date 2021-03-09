@@ -1,0 +1,38 @@
+/*! == FOOTER == */
+footer {
+    padding: 2rem 0;
+    background: $color_grey_darkest;
+    color: white;
+    strong {
+        display: inline-block;
+        margin-bottom: .5rem;
+    }
+    a {
+        color: white;
+    }
+    .inline-grid a {
+        display: block;
+    }
+    svg {
+        width:100%;
+        height: auto;
+        path {
+            fill:white;
+        }
+    }
+    .logo {
+        svg {
+            path {
+                fill:white;
+            }
+        }
+    }
+}
+.socket {
+    padding: .5rem 0;
+    background: #202020;
+    color: white;
+    p {
+    font-size: $font_size * .86px;        
+    }
+}

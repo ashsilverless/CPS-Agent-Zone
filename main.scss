@@ -1,0 +1,18 @@
+/* === Global SASS File === //
+Handles import of all Sass and partials, outputting as style.css
+*/
+/* === 1 - Vendor ===*/
+@import "scss/5-vendor/bootstrap.scss";
+/* === 2 - Base ===*/
+@import "scss/10-base/variables.scss";
+@import "scss/10-base/mixins";
+@import "scss/10-base/typography.scss";
+/* === 3 - Atomic ===*/
+@import "scss/20-modules/global.scss";
+@import "scss/20-modules/header.scss";
+@import "scss/20-modules/body.scss";
+@import "scss/20-modules/footer.scss";
+@import "scss/20-modules/page-overrides.scss";
+/* === 4 - Modifiers ===*/
+@import "scss/40-modifiers/media-queries.scss";
+@import "scss/40-modifiers/vendor-overwrite.scss";

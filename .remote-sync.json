@@ -1,0 +1,21 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "transport": "ftp",
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "217.199.187.250",
+  "port": "21",
+  "target": "/c_p",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "ash@silverless-works.com",
+  "password": "Bd2Kx!fsM",
+  "watch": [
+    "/main.css"
+  ]
+}
