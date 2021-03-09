@@ -4,7 +4,7 @@ include '../inc/db.php';     # $host  -  $user  -  $pass  -  $db
  //   ini_set ("display_errors", "1"); 	error_reporting(E_ALL);
 
 
-
+/*
 	try {
 	  // Connect and create the PDO object
 	  $countconn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
@@ -26,7 +26,7 @@ include '../inc/db.php';     # $host  -  $user  -  $pass  -  $db
 	  echo $e->getMessage();
 	}
 
-
+*/
 ###########################################################################################################
 $api_user = 'cpapi';
 $key = 'db1ffb0a29e8d7bf7ee056debafdc8e1';
@@ -107,8 +107,11 @@ foreach ($item as $data => $value){
 
 }
 
-$begin = new DateTime('2020-01-01');
-$end = new DateTime('2020-08-01');
+$nowend = date('Y-m-d');
+
+
+$begin = new DateTime('2019-06-01');
+$end = new DateTime($nowend);
 
 $interval = DateInterval::createFromDateString('1 month');
 $period = new DatePeriod($begin, $interval, $end);

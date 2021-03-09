@@ -1293,7 +1293,7 @@
                         <div class="col-2">
                             <div class="sidebar">
                                 <nav class="admin">
-                                    <a href="../c_p/client/home.php" class="button button__icon button-subdued" target="_blank"><i class="fas fa-sign-in-alt"></i> View Front End</a>
+                                    <a href="../client/home.php" class="button button__icon button-subdued" target="_blank"><i class="fas fa-sign-in-alt"></i> View Front End</a>
                                     <div class="group">
                                         <a href="dashboard.php" class="<?= $current_page == 'dashboard.php' ? 'active':NULL; ?>"><i class="fas fa-wifi"></i> Dashboard</a>
                                     </div>
