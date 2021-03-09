@@ -9,16 +9,16 @@ include '../inc/db.php';     # $host  -  $user  -  $pass  -  $db
 	  // Connect and create the PDO object
 	  $countconn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
 	  $countconn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-      $countData = '';
-      for($d_inc=0;$d_inc<7;$d_inc++){
-          $d_query =date('Y-m-d',strtotime('last sunday +'.$d_inc.' days'));
-          $countresult = $countconn->prepare("SELECT * FROM tbl_hits WHERE dt_date LIKE '$d_query%' ;");
-          $countresult->execute();
-          $count = $countresult->rowCount();
-          $countData .= $count.",";
+	  $countData = '';
+	  for($d_inc=0;$d_inc<7;$d_inc++){
+		  $d_query =date('Y-m-d',strtotime('last sunday +'.$d_inc.' days'));
+		  $countresult = $countconn->prepare("SELECT * FROM tbl_hits WHERE dt_date LIKE '$d_query%' ;");
+		  $countresult->execute();
+		  $count = $countresult->rowCount();
+		  $countData .= $count.",";
 
-      }
-      $countData = substr($countData, 0, -1);
+	  }
+	  $countData = substr($countData, 0, -1);
 	  $countconn = null;        // Disconnect
 
 	}
@@ -37,17 +37,17 @@ $now = date('d-m-Y');
 	$xml_request = <<<XML
 <request>
   <auth>
-    <user>cpapi</user>
-    <key>db1ffb0a29e8d7bf7ee056debafdc8e1</key>
+	<user>cpapi</user>
+	<key>db1ffb0a29e8d7bf7ee056debafdc8e1</key>
   </auth>
   <action>
-    <method>statistic_report</method>
-    <params>
-      <param name="date_from" value="01-06-2019"/>
-      <param name="date_to" value="$now"/>
-      <param name="supplier_name" value="Cheli &amp; Peacock Safaris Kenya"/>
-      <param name="lead_only" value="false"/>
-    </params>
+	<method>statistic_report</method>
+	<params>
+	  <param name="date_from" value="01-06-2019"/>
+	  <param name="date_to" value="$now"/>
+	  <param name="supplier_name" value="Cheli &amp; Peacock Safaris Kenya"/>
+	  <param name="lead_only" value="false"/>
+	</params>
   </action>
 </request>
 XML;
@@ -120,7 +120,7 @@ $data = '';
 
 foreach ($period as $dt) {
 
-    $thedate = $dt->format("Y-m");
+	$thedate = $dt->format("Y-m");
 
 	$query = "SELECT SUM(total_cost) AS value_sum FROM `tbl_pe_stats` WHERE status_name LIKE 'Confirmed' AND date_from LIKE '".$thedate."%' ;";
 
@@ -196,7 +196,7 @@ $conn = null;
 
 <?php require_once('_footer-admin.php'); ?>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
 		Chart.defaults.global.legend.display = false;
 		var ctxline = document.getElementById('linechart');
 		var myLineChart = new Chart(ctxline, {
@@ -256,14 +256,14 @@ $conn = null;
 				title: {
 				},
 				elements: {
-                    point:{
-                        radius: 0
-                    }
-                }
+					point:{
+						radius: 0
+					}
+				}
 			}
 		});
 
-    </script>
+	</script>
 
 </body>
 </html>

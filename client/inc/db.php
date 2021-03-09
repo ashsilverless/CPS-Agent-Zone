@@ -23,20 +23,15 @@ if($_GET['err']!=""){
 	$pass = "sH/-U-dHW";
 	$db	 = "cl57-sw-admin1";
 	$charset = 'utf8mb4';
-
+*/
 
     $host = "79.170.43.15";
     $user = "cl13-silverles";
 	$pass = "UEyJ.x2Dq";
 	$db	 = "cl13-silverles";
 	$charset = 'utf8mb4';
-*/
 
-	$host = "localhost";
-    $user = "cps_az";
-    $pass = "CPS_az_321";
-    $db = "cps_az_build3-21";
-    $charset = 'utf8mb4';
+
 	##################     / LIVE SERVER     ##########################
 
 function array_flatten($array) { 

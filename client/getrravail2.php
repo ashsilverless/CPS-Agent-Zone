@@ -292,6 +292,6 @@ $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql_del = "DELETE FROM `tbl_roomavail` WHERE uid = $user_id";
 $d=$conn->prepare($sql_del);
-//$d->execute();
+$d->execute();
 $conn = null;        // Disconnect
 ?>
