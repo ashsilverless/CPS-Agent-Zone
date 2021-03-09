@@ -626,6 +626,11 @@ main {
       .submit {
         grid-column: span 3;
       }
+      .submit {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: .5rem;
+      }
     }
 
     &.properties > .container {
