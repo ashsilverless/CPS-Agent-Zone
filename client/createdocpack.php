@@ -2,9 +2,9 @@
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 require_once('pdf_gen/config/lang/eng.php');
 require_once('pdf_gen/tcpdf.php');
-
+ini_set ("display_errors", "1");
 /*      
-	ini_set ("display_errors", "1");
+	
 	error_reporting(E_ALL);
      */
 
@@ -32,8 +32,6 @@ $sql = "SELECT * FROM `tbl_companies` WHERE id = $company_id AND bl_live = 1;";
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       $company_logo = '../'. $row['company_logo'];
   }
-
-if($company_logo==""){ $company_logo = "../companies/r12.jpg";};
 
 $company_logo = "../companies//safari_x.jpg";
 
@@ -143,8 +141,27 @@ foreach($fileArray as $file) {
 }
 $result = shell_exec($cmd);
 
-
-
 echo ($return.'<a href="download.php?file='.$outputName.'"><p class="button button__inline createpack mt1"><i class="fas fa-download"></i> Download: '.$merge_name.'</p></a>');
+
+
+/*
+$zip = new ZipArchive;
+$zipname = str_replace(" ","_",$pack_title).".zip";
+
+if ($zip->open($zipname, ZipArchive::CREATE) === TRUE)
+{
+    // Add files to the zip file
+    $zip->addFile('test.txt');
+    foreach($fileArray as $file) {
+        $zip->addFile($file);
+    }
+
+    // All files are added, so close the zip file.
+    $zip->close();
+}
+
+echo ($return.'<a href="download.php?file='.$zip.'"><p class="button button__inline createpack mt1"><i class="fas fa-download"></i> Download: '.$zipname.'</p></a>');
+*/
+
 
 ?>

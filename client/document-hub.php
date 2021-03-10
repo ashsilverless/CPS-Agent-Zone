@@ -7,12 +7,24 @@ $_GET['p_id'] != '' ? $property_id = $_GET['p_id'] : $property_id = 0;
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-  $result = $conn->prepare("SELECT * FROM tbl_assets WHERE asset_cat != '' AND asset_type LIKE 'Document' AND property_id = $property_id AND bl_live = '1' ORDER BY asset_cat ASC;");
+
+  $result = $conn->prepare("SELECT * FROM tbl_assets WHERE asset_type LIKE 'Document' AND property_id = 0 AND bl_live = '1' ORDER BY asset_cat ASC;");
   $result->execute();
   $count = $result->rowCount();
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		  $assets[] = $row;
 	  }
+
+
+    ///        Now add the property docs 
+if($property_id!=0){
+    $result = $conn->prepare("SELECT * FROM tbl_assets WHERE asset_type LIKE 'Document' AND property_id = $property_id AND bl_live = '1' ORDER BY asset_cat ASC;");
+      $result->execute();
+      $count = $result->rowCount();
+      while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+              $assets[] = $row;
+          }
+}
 
   $conn = null;        // Disconnect
 

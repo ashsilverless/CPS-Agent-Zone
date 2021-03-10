@@ -1635,7 +1635,7 @@ label.checkbox {
     padding-bottom: 1rem;
     .camp,
     .activities {
-      grid-column: span 6;
+      grid-column: span 12;
     }
     .activities {
       text-align: right;
@@ -1662,10 +1662,10 @@ label.checkbox {
       }
     }
     .season {
-      grid-column: span 2;
+      grid-column: span 12;
     }
     .rates {
-      grid-column: span 1;
+      grid-column: span 12;
     }
     .accom {
       grid-column: span 12;
@@ -1681,20 +1681,21 @@ label.checkbox {
         }
       }
     }
-    .access {
-      grid-column: span 4;
+    .access,
+    .description {
+      grid-column: span 12;
     }
     .factors {
-      grid-column: span 8;
+      grid-column: span 12;
     }
     .kids {
-      grid-column: span 4;
+      grid-column: span 12;
     }
     .offers {
-      grid-column: span 2;
+      grid-column: span 12;
     }
     .docs {
-      grid-column: span 3;
+      grid-column: span 12;
     }
   }
   &__head {
@@ -1726,6 +1727,19 @@ label.checkbox {
     padding: 0;
     background: white;
     margin-bottom: 1rem;
+    > div {
+      display: grid;
+      grid-template-columns: 3fr 7fr;
+      .heading {
+        grid-column: 1/2;
+      }
+      p {
+        grid-column: 2/3;
+      }
+    }
+    .heading+p {
+      margin-top:0;
+    }
   }
   &.active {
     .crib-sheet__body {

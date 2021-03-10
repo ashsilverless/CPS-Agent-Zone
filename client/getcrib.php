@@ -97,42 +97,35 @@ foreach ($data as $props):
 			<h2 class="heading heading__4"><?=$props['prop_title'];?></h2>
 		</div>
 		
-		<div class="activities">
-			<p><?=$activities?></p>
-		</div>
-		
 		<i class="fas fa-chevron-down"></i>
 	</div>
 	<div class="crib-sheet__body">	
-		<div class="factors">
-				<h2 class="heading heading__6">Classic Factors</h2>
-				<p><?=$props['classic_factors'];?></p>
-		</div>	
-	
-		<div class="access">
-				<h2 class="heading heading__6">Access</h2>
-				<p><?=$props['access_details'];?></p>
-		</div>
-	
-		<div class="accom">
-			<h2 class="heading heading__6">Accommodation</h2>
-			<p><?=$accom;?></p>
+
+		<div class="description">
+			<h2 class="heading heading__6">Description</h2>
+			<p>CAMP DESCRIPTION IN HERE</p>
 		</div>
 		
+		<div class="accom">
+			<h2 class="heading heading__6">Accommodation</h2>
+			<p>RETURN ROOM TYPES AS SHOWN ON FRONT END</p>
+		</div>
+
+		<div class="access">
+				<h2 class="heading heading__6">Access</h2>
+				<?=$props['access_details'];?>
+		</div>
+
 		<div class="season">
 				<h2 class="heading heading__6">Season</h2>
-				<p><?=$seasons;?></p>
+				<p>RETURN SEASONS DATA</p>
 			</div>
 				
 		<div class="rates">
 			<h2 class="heading heading__6">Rates</h2>
-			<p><?=$rates;?></p>
+			<p><a href="property_rates.php?id=<?=$prop-id;?>" class="button">View Rates Card</a></p>
 		</div>
-	
-	
-	
-	
-	
+
 		<div class="kids">
 			<h2 class="heading heading__6">Kids</h2>
 			<p><?=$props['children'];?></p>
@@ -145,6 +138,7 @@ foreach ($data as $props):
 		<div class="docs">
 			<h2 class="heading heading__6">Documents</h2>
 			<p><?=$docs;?></p>
+			<!--*** DOCS COMING THROUGH WITHOUT DOC NAMES-->
 		</div>
 	</div>
 </div>

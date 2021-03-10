@@ -2,50 +2,7 @@
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 $templateName = 'crib';?>
 <?php require_once('_header.php'); ?>
-<style>
 
-.col-xs-1-10,
-.col-sm-1-10 {
-  position: relative;
-  min-height: 1px;
-}
-
-.col-xs-1-10 {
-  width: 10%;
-  min-width: 10%;
-  float: left;
-}
-
-.smaller p{
-  font-size: 65%;
-  margin: 0;  
-}
-	
-@media (min-width: 768px) {
-  .col-sm-1-10 {
-    width: 10%;
-  min-width: 10%;
-    float: left;
-  }
-}
-
-@media (min-width: 992px) {
-  .col-md-1-10 {
-    width: 10%;
-  min-width: 10%;
-    float: left;
-  }
-}
-
-@media (min-width: 1200px) {
-  .col-lg-1-10 {
-    width: 10%;
-  min-width: 10%;
-    float: left;
-  }
-}
-
-</style>
     <!-- Begin Page Content -->
 	<main>
 		<div class="container section">

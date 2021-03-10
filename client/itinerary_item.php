@@ -7,6 +7,19 @@ try {
 	// Connect and create the PDO object
 	$conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
 	$conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+    
+    
+    //    Get a list of all the itineraries    //
+    $sql = "SELECT * FROM tbl_itineraries WHERE bl_live = 1 ORDER BY modified_date DESC ";
+
+    $result = $conn->prepare($sql);
+	$result->execute();
+
+	// Parse returned data
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$itineraries[] = $row;
+	}
+    
 
 	$sql = "SELECT * FROM `tbl_itineraries` WHERE id = $itin_id AND bl_live = 1;";
 
@@ -143,6 +156,17 @@ catch(PDOException $e) {
 	<div class="container">
 		<div class="row mt3">
 			<div class="col-7">
+                
+                <div class="select-wrapper">
+                  <select name="select_itin" id="select_itin">
+                    <option value="0" selected="selected">Itinerary</option>
+                    <?php foreach($itineraries as $itinerary): ?>
+                      <option value="<?=$itinerary['id'];?>" <?php if($itinerary['id']==$itin_id){?>selected="selected"<?php }?>><?=$itinerary['itinerary_title'];?></option>
+                    <?php endforeach; ?>
+                 </select>
+                </div>
+                
+                
 				<h1 class="heading heading__2"><?=$itin_data[0]['itinerary_title'];?></h1>
 				<h4 class="heading heading__4">From $XXXX</h4>
 				<p><?=str_replace("\n","<br>",$itin_data[0]['itinerary_desc']);?></p>
@@ -184,6 +208,14 @@ catch(PDOException $e) {
 		</div>
 	</div>
 
+    <div class="container">
+		<div class="row mt3">
+			<div class="col-12">
+                <div id='itinmapdd' class="map-section__map mb3" style='width: 100%; height: 35rem;'></div>
+            </div>
+		</div>
+	</div>
+
 </main>
 	<!-- End of Page Content -->
 
@@ -214,6 +246,11 @@ $(function () {
 })
 
 $(document).ready(function() {
+
+    document.getElementById('select_itin').addEventListener('change', function() {
+		var itin_id = $("#select_itin").val();
+        window.location = "itinerary_item.php?id="+itin_id;
+	});
 
      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
@@ -382,6 +419,11 @@ $(document).ready(function() {
 				[<?=$nelong;?>, <?=$nelat;?>]
 		   ]);
 	}
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
 
 	});
 </script>

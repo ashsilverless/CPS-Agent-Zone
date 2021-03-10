@@ -1,10 +1,28 @@
 <?PHP
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 $intro_text = nl2br(getField('tbl_page_data','intro_text','page_name','maps'));
+
+
+$itin_id = $_GET['itin_id'];
+$_GET['tab'] == '' ? $selected_tab = 'no-tab' : $selected_tab = $_GET['tab'];
+
+
+
 try {
   // Connect and create the PDO object
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+    
+  //    Get a list of all the itineraries    //
+    $sql = "SELECT * FROM tbl_itineraries WHERE bl_live = 1 ORDER BY modified_date DESC ";
+
+    $result = $conn->prepare($sql);
+	$result->execute();
+
+	// Parse returned data
+	while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		$itineraries[] = $row;
+	}
 
   $result = $conn->prepare("SELECT * FROM tbl_assets WHERE asset_type LIKE 'Map' AND bl_live > '0' ORDER BY asset_cat ASC;");
   $result->execute();
@@ -19,6 +37,97 @@ try {
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 		  $bestfor[] = $row;
 	  }
+    
+//            Itinerary     //    
+    
+   if($itin_id!=''){ 
+    $sql = "SELECT * FROM `tbl_itineraries` WHERE id = $itin_id AND bl_live = 1;";
+
+	  $result = $conn->prepare($sql);
+	  $result->execute();
+
+	  // Parse returned data
+	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		  $itin_data[] = $row;
+	  }
+
+
+	# P1 = North East      P2 = South West
+	$swlat = '999';
+	$swlong = '999';
+	$nelat = '-999';
+	$nelong = '-999';
+
+
+	$sql = "SELECT * FROM `tbl_airports` WHERE id = ".$itin_data[0]['arrival_airport']." AND bl_live = 1;";
+
+	  $result = $conn->prepare($sql);
+	  $result->execute();
+
+	  // Parse returned data
+	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		  $start_name = $row['airport_name'];
+		  $start_coords = '['.$row['long'].' , '.$row['lat'].'],';
+		  $start_coords_plat = $row['lat'];
+		  $start_coords_plong = $row['long'];
+
+		  if($row['lat'] < $swlat){
+			  $swlat = $row['lat']-1;
+		  }
+
+		  if($row['lat'] > $nelat){
+			  $nelat = $row['lat']+3;
+		  }
+
+		  if($row['long'] < $swlong){
+			  $swlong = $row['long']-1;
+		  }
+
+		  if($row['long'] > $nelong){
+			  $nelong = $row['long']+1;
+		  }
+	  }
+
+
+
+	$sql_props = "SELECT * FROM tbl_itinerary_prop_dates ipd INNER JOIN tbl_properties prop ON prop.id = ipd.prop_id WHERE ipd.itinerary_id = $itin_id AND ipd.bl_live = 1 ORDER BY day_from ASC;";
+
+
+	  $result = $conn->prepare($sql_props);
+	  $result->execute();
+
+	  $flightMax = 0;
+	  // Parse returned data
+	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		  $plat[] = $row['prop_lat'];
+		  $plong[] = $row['prop_long'];
+		  $pname[] = $row['prop_title'];
+		  $pfac[] = str_replace('|',' fac',$row['facilities']);
+		  $pbanner[] = $row['prop_banner'];
+		  $pid[] = $row['id'];
+
+
+		  if($row['prop_lat'] < $swlat){
+			  $swlat = $row['prop_lat']-1;
+		  }
+
+		  if($row['prop_lat'] > $nelat){
+			  $nelat = $row['prop_lat']+1;
+		  }
+
+		  if($row['prop_long'] < $swlong){
+			  $swlong = $row['prop_long']-1;
+		  }
+
+		  if($row['prop_long'] > $nelong){
+			  $nelong = $row['prop_long']+1;
+		  }
+
+		  $coords .= '['.trim($row['prop_long']).' , '.trim($row['prop_lat']).'],';
+		  $flightMax ++;
+	  }
+	$coords = substr($coords, 0, -1);
+   }
 
   $conn = null;        // Disconnect
 
@@ -105,6 +214,34 @@ catch(PDOException $e) {
 				</div>
 			</div>
 		</div>
+        
+        
+        
+        <!--   ##################    Itinerary Map   ####################### -->
+        
+        <!--             Use the php variable   $selected_tab    to show or hide this section    -->
+        
+        
+        
+        <div class="container">
+			<div class="row">
+				<div class="col-md-12">
+                    <div class="select-wrapper">
+                      <select name="select_itin" id="select_itin">
+                        <option value="0" selected="selected">Itinerary</option>
+                        <?php foreach($itineraries as $itinerary): ?>
+                          <option value="<?=$itinerary['id'];?>" <?php if($itinerary['id']==$itin_id){?>selected="selected"<?php }?>><?=$itinerary['itinerary_title'];?></option>
+                        <?php endforeach; ?>
+                     </select>
+                    </div>
+                    
+                    <div class="itinerarymap">
+                        <div id='itinmap' class="map-section__map" style='width: 100%; height: 40rem;'></div>
+                    </div>
+                    
+                </div>
+			</div>
+		</div>
   	</main>
 	<!-- End of Page Content -->
 
@@ -136,6 +273,12 @@ $(function () {
 })
 
 $(document).ready(function() {
+    
+    document.getElementById('select_itin').addEventListener('change', function() {
+		var itin_id = $("#select_itin").val();
+        //window.location = "maps.php?itin_id="+itin_id+"&tab=itintab";
+        $(".itinerarymap").load("createitinerarymap.php?itin_id="+itin_id);
+	});
 
 	var selectedFacilities = [];
 
@@ -236,10 +379,17 @@ $(document).ready(function() {
 
 	$(document).on('click', '.createpack', function(e) {
         e.preventDefault();
-        $("#docpack").load("createdocpack.php?assets="+selectedDocs);
+        $("#docpack").load("createmapdocpack.php?assets="+selectedDocs);
     });
 
-
+    ///////////////////////////////////////////////    ITINERARIES   /////////////////////////////////////////
+    
+    var itinmap = new mapboxgl.Map({
+		container: 'itinmap',
+		style: 'mapbox://styles/mapbox/light-v10',
+		center: [28.752148,-22.921303],
+		zoom: 5
+	});
 
 });
 

@@ -1,11 +1,12 @@
 <?PHP
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
-
+//Commentvcc
 $room_id = $_GET['id'];
 $rr_id = $_GET['rr_id'];
 $prop_id = $_GET['pid'];
 $agent_level = 'agent'.$_SESSION['agent_level'].'_rate';;
 $info = getFields('tbl_rooms','id',$room_id);
+$intro_text = nl2br(getField('tbl_page_data','intro_text','page_name','availability'));
 
 $_SESSION['rm_mnth'] = date('m', mktime(0, 0, 0, date('m'), 1, date('Y')));
 $_SESSION['rm_yr'] = date('Y', mktime(0, 0, 0, date('m'), 1, date('Y')));
@@ -121,7 +122,7 @@ if($dest_id!=''){
 
     <div class="container">
         <h1 class="heading heading__1">Availability <span>14 Days In View</span></h1>
-        <p class="introduction">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+        <div class="introduction"><?=$intro_text;?></div>
         <div class="row">
 			<div class="col-md-12" id="dates_avail"></div>
 		</div>
